@@ -49,66 +49,12 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$attacker->attacks($damaged, 200);
+		$attacker->attacks($damaged, 400);
 
 		//then
 		$damagedHealth = $damaged->getHealth();
 
-		$this->assertEquals(800, $damagedHealth);
+		$this->assertEquals(600, $damagedHealth);
 	}
 
-	public function test_When_damage_received_exceeds_Health_becomes_0_and_die()
-	{
-
-		$attacker = new Character();
-		$damaged = new Character();
-
-		$attacker->attacks($damaged, 1001);
-
-		$damagedHealth = $damaged->getHealth();
-
-		$this->assertEquals(0, $damagedHealth);
-		$this->assertEquals(false, $damaged->isAlive());
-	}
-
-	public function test_Dead_characters_cannot_be_healed()
-	{
-
-		$healer = new Character();
-		$dead = new Character();
-		$dead->die();
-
-		$healer->heal($dead, 100);
-		$deadHealth = $dead->getHealth();
-		$deadAlive = $dead->isAlive();
-
-		$this->assertEquals(0, $deadHealth);
-		$this->assertEquals(false, $deadAlive);
-	}
-
-	public function test_Healing_cannot_raise_health_above_1000()
-	{
-
-		$healer = new Character();
-		$healed = new Character();
-
-		$healer->heal($healed, 100);
-
-		$healedHealth = $healed->getHealth();
-
-		$this->assertEquals(1000, $healedHealth);
-	}
-
-	public function test_A_Character_can_Heal_a_Character()
-	{
-
-		$healer = new Character();
-		$healed = new Character();
-		$healed->setHealth(400);
-
-		$healer->heal($healed, 100);
-		$healedHealth = $healed->getHealth();
-
-		$this->assertEquals(500, $healedHealth);
-	}
-}
+}	

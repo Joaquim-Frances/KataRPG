@@ -10,7 +10,7 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
 1. Complete each iteration before reading the next one.
 
-1. It's recommended you perform this kata with a pairing partner and while writing tests.
+2. It's recommended you perform this kata with a pairing partner and while writing tests.
 
 ## Iteration One ##
 
@@ -19,11 +19,11 @@ This is a fun kata that has the programmer building simple combat rules, as for 
     - Level, starting at 1
     - May be Alive or Dead, starting Alive (Alive may be a true/false)
 
-1. Characters can Deal Damage to Characters.
+2. Characters can Deal Damage to Characters.
     - Damage is subtracted from Health
     - When damage received exceeds current Health, Health becomes 0 and the character dies
 
-1. A Character can Heal a Character.
+3. A Character can Heal a Character.
     - Dead characters cannot be healed
     - Healing cannot raise health above 1000
 
@@ -31,9 +31,9 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
 1. A Character cannot Deal Damage to itself.
 
-1. A Character can only Heal itself.
+2. A Character can only Heal itself.
 
-1. When dealing damage:
+3. When dealing damage:
     - If the target is 5 or more Levels above the attacker, Damage is reduced by 50%
     - If the target is 5 or more levels below the attacker, Damage is increased by 50%
 
@@ -41,11 +41,11 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 
 1. Characters have an attack Max Range.
 
-1. *Melee* fighters have a range of 2 meters.
+2. *Melee* fighters have a range of 2 meters.
 
-1. *Ranged* fighters have a range of 20 meters.
+3. *Ranged* fighters have a range of 20 meters.
 
-1. Characters must be in range to deal damage to a target.
+4. Characters must be in range to deal damage to a target.
 
 ## Retrospective ##
 
@@ -58,13 +58,13 @@ This is a fun kata that has the programmer building simple combat rules, as for 
 1. Characters may belong to one or more Factions.
     - Newly created Characters belong to no Faction.
 
-1. A Character may Join or Leave one or more Factions.
+2. A Character may Join or Leave one or more Factions.
 
-1. Players belonging to the same Faction are considered Allies.
+3. Players belonging to the same Faction are considered Allies.
 
-1. Allies cannot Deal Damage to one another.
+4. Allies cannot Deal Damage to one another.
 
-1. Allies can Heal one another.
+5. Allies can Heal one another.
 
 ## Iteration Five ##
 
