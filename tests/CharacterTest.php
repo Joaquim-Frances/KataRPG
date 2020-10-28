@@ -56,5 +56,60 @@ class CharacterTest extends TestCase
 
 		$this->assertEquals(600, $damagedHealth);
 	}
+	public function test_damage_Health_0_character_Dies()
+	{
+		//given escenario
 
+		$attacker = new Character();
+		$damaged = new Character();
+
+		// action
+
+		$attacker->attacks($damaged, 1001);
+
+		//then
+		$damagedHealth = $damaged->getHealth();
+		$damagedAlive = $damaged->isAlive();
+
+		$this->assertEquals(0, $damagedHealth);
+		$this->assertEquals(false, $damagedAlive);
+	}
+	public function test_characters_can_heal()
+	{
+		//given escenario
+
+		$attacker = new Character();
+		$damaged = new Character();
+
+		// action
+
+		$attacker->attacks($damaged, 500);
+		$attacker->heal($damaged, 250);
+
+		//then
+		$damagedHealth = $damaged->getHealth();
+		
+
+		$this->assertEquals(750, $damagedHealth);
+		
+	}
+	public function test_dead_characters_cannot_heal()
+	{
+		//given escenario
+
+		$attacker = new Character();
+		$damaged = new Character();
+
+		// action
+
+		$attacker->attacks($damaged, 1001);
+		$attacker->heal($damaged, 250);
+
+		//then
+		$damagedHealth = $damaged->getHealth();
+		
+
+		$this->assertEquals(0, $damagedHealth);
+		
+	}
 }	
