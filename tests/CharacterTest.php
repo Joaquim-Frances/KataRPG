@@ -83,14 +83,14 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$attacker->attacks($damaged, 500);
-		$attacker->heal($damaged, 250);
+		$damaged->attacks($attacker, 500);
+		$attacker->heal($attacker, 250);
 
 		//then
-		$damagedHealth = $damaged->getHealth();
+		$attackerHealth = $attacker->getHealth();
 		
 
-		$this->assertEquals(750, $damagedHealth);
+		$this->assertEquals(750, $attackerHealth);
 		
 	}
 	public function test_dead_characters_cannot_heal()
@@ -121,8 +121,8 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$attacker->attacks($damaged, 250);
-		$attacker->heal($damaged, 500);
+		$damaged->attacks($attacker, 250);
+		$attacker->heal($attacker, 500);
 
 		//then
 		$damagedHealth = $damaged->getHealth();
@@ -148,6 +148,29 @@ class CharacterTest extends TestCase
 		
 
 		$this->assertEquals(1000, $attackerHealth);
+		
+	}
+	public function test_character_only_heals_himself()
+	{
+		//given escenario
+
+		$attacker = new Character();
+		$damaged = new Character();
+		
+
+		// action
+
+		$damaged->attacks($attacker, 350);
+		$attacker->heal($attacker, 350);
+		
+
+		//then
+		$attackerHealth = $attacker->getHealth();
+		
+		
+
+		$this->assertEquals(1000, $attackerHealth);
+		
 		
 	}
 }	

@@ -51,12 +51,15 @@ class Character
         if($target->alive !==true){
             return;
         }
-        $target->health += $healing;
-        
-        if($target->health > 1000){
-            $target->health = 1000;
+        if($target == $this){
+            $target->health += $healing;
+            if($target->health > 1000){
+                $target->health = 1000;
+            }
         }
     }
+
+        
 
         
         
