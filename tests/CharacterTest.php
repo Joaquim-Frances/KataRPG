@@ -112,4 +112,23 @@ class CharacterTest extends TestCase
 		$this->assertEquals(0, $damagedHealth);
 		
 	}
+	public function test_health_cannot_rise_l000()
+	{
+		//given escenario
+
+		$attacker = new Character();
+		$damaged = new Character();
+
+		// action
+
+		$attacker->attacks($damaged, 250);
+		$attacker->heal($damaged, 500);
+
+		//then
+		$damagedHealth = $damaged->getHealth();
+		
+
+		$this->assertEquals(1000, $damagedHealth);
+		
+	}
 }	

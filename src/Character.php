@@ -48,7 +48,10 @@ class Character
             return;
         }
         $target->health += $healing;
-
+        
+        if($target->health > 1000){
+            $target->health = 1000;
+        }
     }
 
         
