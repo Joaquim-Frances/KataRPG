@@ -36,12 +36,16 @@ class Character
         return $this->alive;
     }
     public function attacks($target, $damage){
-        $target->health -= $damage;
-        if($target->health < 1){
-            $target->health = 0;
-            $target->alive = false;
+        if($target !== $this){
+            $target->health -= $damage;
+            if($target->health < 1){
+                $target->health = 0;
+                $target->alive = false;
+            }
         }
     }
+
+
     
     public function heal($target, $healing){
         if($target->alive !==true){

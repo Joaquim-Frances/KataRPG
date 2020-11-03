@@ -131,4 +131,23 @@ class CharacterTest extends TestCase
 		$this->assertEquals(1000, $damagedHealth);
 		
 	}
+	public function test_character_cannot_attack_himself()
+	{
+		//given escenario
+
+		$attacker = new Character();
+		
+
+		// action
+
+		$attacker->attacks($attacker, 350);
+		
+
+		//then
+		$attackerHealth = $attacker->getHealth();
+		
+
+		$this->assertEquals(1000, $attackerHealth);
+		
+	}
 }	
