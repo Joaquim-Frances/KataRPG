@@ -35,17 +35,27 @@ class Character
     {
         return $this->alive;
     }
-    public function attacks($target, $damage){
+    public function attacks($target, $damage, $targetLevel){
+        $porcentageDaño = $this->compareLevels($targetLevel);
         if($target !== $this){
-            $target->health -= $damage;
+            $target->health -= $damage * $porcentageDaño;
             if($target->health < 1){
                 $target->health = 0;
                 $target->alive = false;
             }
         }
     }
-
-
+    public function compareLevels($targetLevel){
+        $difLevel = $this->level - $targetLevel;
+        $difLevel = abs($difLevel);
+        if($targetLevel > $this->level && $difLevel>=5){
+            return 0.5;
+        }
+        if($targetLevel < $this->level && $difLevel>=5){
+            return 2;
+        }
+        return 1;   
+    }
     
     public function heal($target, $healing){
         if($target->alive !==true){
@@ -58,10 +68,15 @@ class Character
             }
         }
     }
-
-        
-
-        
-        
 } 
+        
+    
+
+
+    
+
+        
+
+        
+        
     

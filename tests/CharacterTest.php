@@ -49,7 +49,7 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$attacker->attacks($damaged, 400);
+		$attacker->attacks($damaged, 400, 1);
 
 		//then
 		$damagedHealth = $damaged->getHealth();
@@ -65,7 +65,7 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$attacker->attacks($damaged, 1001);
+		$attacker->attacks($damaged, 1001, 1);
 
 		//then
 		$damagedHealth = $damaged->getHealth();
@@ -83,7 +83,7 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$damaged->attacks($attacker, 500);
+		$damaged->attacks($attacker, 500, 1);
 		$attacker->heal($attacker, 250);
 
 		//then
@@ -102,7 +102,7 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$attacker->attacks($damaged, 1001);
+		$attacker->attacks($damaged, 1001, 1);
 		$attacker->heal($damaged, 250);
 
 		//then
@@ -121,7 +121,7 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$damaged->attacks($attacker, 250);
+		$damaged->attacks($attacker, 250, 1);
 		$attacker->heal($attacker, 500);
 
 		//then
@@ -140,7 +140,7 @@ class CharacterTest extends TestCase
 
 		// action
 
-		$attacker->attacks($attacker, 350);
+		$attacker->attacks($attacker, 350, 1);
 		
 
 		//then
@@ -153,24 +153,50 @@ class CharacterTest extends TestCase
 	public function test_character_only_heals_himself()
 	{
 		//given escenario
-
 		$attacker = new Character();
 		$damaged = new Character();
-		
-
 		// action
-
-		$damaged->attacks($attacker, 350);
+		$damaged->attacks($attacker, 350, 1);
 		$attacker->heal($attacker, 350);
-		
-
 		//then
 		$attackerHealth = $attacker->getHealth();
+		$this->assertEquals(1000, $attackerHealth);
+	}
+	public function test_target_5_levels_above_damage_by_half()
+	{
+		//given escenario
+		$attacker = new Character();
+		$target = new Character();
+		// action
+		
+		$attacker->attacks($target, 200, 6);
+		
+		
+		//then
+		$targetHealth = $target->getHealth();
+		$this->assertEquals(900, $targetHealth);
+	}
+	public function test_target_5_levels_below_by_half()
+	{
+		//given escenario
+		$attacker = new Character();
+		$target = new Character();
+		// action
+		
+		$attacker->attacks($target, 200, -4);
+		
+		
+		//then
+		$targetHealth = $target->getHealth();
+		$this->assertEquals(600, $targetHealth);
+	}	
+
+
+		
+
 		
 		
 
-		$this->assertEquals(1000, $attackerHealth);
 		
 		
-	}
 }	
