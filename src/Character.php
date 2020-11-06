@@ -8,12 +8,15 @@ class Character
     private int $health;
     private int $level;
     private bool $alive;
+    private string $type;
+    private int $maxRange;
 
-    function __construct()
+    function __construct($type)
     {
         $this->health = 1000;
         $this->level = 1;
         $this->alive = true;
+        $this->type = $type;
     }
 
     public function getHealth(): int
