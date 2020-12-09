@@ -9,7 +9,7 @@ class Character
     private int $level;
     private bool $alive;
     private string $type;
-    private int $maxRange;
+    
 
     function __construct($type)
     {
@@ -38,14 +38,29 @@ class Character
     {
         return $this->alive;
     }
-    public function attacks($target, $damage, $targetLevel){
-        $porcentageDaño = $this->compareLevels($targetLevel);
-        if($target !== $this){
-            $target->health -= $damage * $porcentageDaño;
-            if($target->health < 1){
-                $target->health = 0;
-                $target->alive = false;
+
+    public function attacks($target, $damage, $targetLevel, $distance){
+        if($this->type == 'melee' && $distance <= 2){
+            $porcentageDaño = $this->compareLevels($targetLevel);
+            if($target !== $this){
+                $target->health -= $damage * $porcentageDaño;
+                if($target->health < 1){
+                    $target->health = 0;
+                    $target->alive = false;
+                }
             }
+
+        }
+        if($this->type == 'ranged' && $distance <= 20){
+            $porcentageDaño = $this->compareLevels($targetLevel);
+            if($target !== $this){
+                $target->health -= $damage * $porcentageDaño;
+                if($target->health < 1){
+                    $target->health = 0;
+                    $target->alive = false;
+                }
+            }
+
         }
     }
     public function compareLevels($targetLevel){

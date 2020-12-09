@@ -13,7 +13,7 @@ class CharacterTest extends TestCase
 	public function test_Health_starting_at_1000()
 	{
 
-		$sonGoku = new Character();
+		$sonGoku = new Character('melee');
 
 		$result = $sonGoku->getHealth();
 
@@ -23,7 +23,7 @@ class CharacterTest extends TestCase
 	public function test_Level_starting_at_1()
 	{
 
-		$sonGoku = new Character();
+		$sonGoku = new Character('melee');
 
 		$result = $sonGoku->getLevel();
 
@@ -33,7 +33,7 @@ class CharacterTest extends TestCase
 	public function test_starting_Alive()
 	{
 
-		$sonGoku = new Character();
+		$sonGoku = new Character('melee');
 
 		$result = $sonGoku->isAlive();
 
@@ -44,12 +44,12 @@ class CharacterTest extends TestCase
 	{
 		//given escenario
 
-		$attacker = new Character();
-		$damaged = new Character();
+		$attacker = new Character('melee');
+		$damaged = new Character('melee');
 
 		// action
 
-		$attacker->attacks($damaged, 400, 1);
+		$attacker->attacks($damaged, 400, 1, 1);
 
 		//then
 		$damagedHealth = $damaged->getHealth();
@@ -60,12 +60,12 @@ class CharacterTest extends TestCase
 	{
 		//given escenario
 
-		$attacker = new Character();
-		$damaged = new Character();
+		$attacker = new Character('melee');
+		$damaged = new Character('melee');
 
 		// action
 
-		$attacker->attacks($damaged, 1001, 1);
+		$attacker->attacks($damaged, 1001, 1, 1);
 
 		//then
 		$damagedHealth = $damaged->getHealth();
@@ -78,12 +78,12 @@ class CharacterTest extends TestCase
 	{
 		//given escenario
 
-		$attacker = new Character();
-		$damaged = new Character();
+		$attacker = new Character('melee');
+		$damaged = new Character('melee');
 
 		// action
 
-		$damaged->attacks($attacker, 500, 1);
+		$damaged->attacks($attacker, 500, 1, 1);
 		$attacker->heal($attacker, 250);
 
 		//then
@@ -97,12 +97,12 @@ class CharacterTest extends TestCase
 	{
 		//given escenario
 
-		$attacker = new Character();
-		$damaged = new Character();
+		$attacker = new Character('melee');
+		$damaged = new Character('melee');
 
 		// action
 
-		$attacker->attacks($damaged, 1001, 1);
+		$attacker->attacks($damaged, 1001, 1, 1);
 		$attacker->heal($damaged, 250);
 
 		//then
@@ -116,12 +116,12 @@ class CharacterTest extends TestCase
 	{
 		//given escenario
 
-		$attacker = new Character();
-		$damaged = new Character();
+		$attacker = new Character('melee');
+		$damaged = new Character('melee');
 
 		// action
 
-		$damaged->attacks($attacker, 250, 1);
+		$damaged->attacks($attacker, 250, 1, 1);
 		$attacker->heal($attacker, 500);
 
 		//then
@@ -135,12 +135,12 @@ class CharacterTest extends TestCase
 	{
 		//given escenario
 
-		$attacker = new Character();
+		$attacker = new Character('melee');
 		
 
 		// action
 
-		$attacker->attacks($attacker, 350, 1);
+		$attacker->attacks($attacker, 350, 1, 1);
 		
 
 		//then
@@ -153,10 +153,10 @@ class CharacterTest extends TestCase
 	public function test_character_only_heals_himself()
 	{
 		//given escenario
-		$attacker = new Character();
-		$damaged = new Character();
+		$attacker = new Character('melee');
+		$damaged = new Character('melee');
 		// action
-		$damaged->attacks($attacker, 350, 1);
+		$damaged->attacks($attacker, 350, 1, 1);
 		$attacker->heal($attacker, 350);
 		//then
 		$attackerHealth = $attacker->getHealth();
@@ -165,11 +165,11 @@ class CharacterTest extends TestCase
 	public function test_target_5_levels_above_damage_by_half()
 	{
 		//given escenario
-		$attacker = new Character();
-		$target = new Character();
+		$attacker = new Character('melee');
+		$target = new Character('melee');
 		// action
 		
-		$attacker->attacks($target, 200, 6);
+		$attacker->attacks($target, 200, 6, 1);
 		
 		
 		//then
@@ -178,19 +178,47 @@ class CharacterTest extends TestCase
 	}
 	public function test_target_5_levels_below_by_half()
 	{
-		//given escenario
-		$attacker = new Character();
-		$target = new Character();
-		// action
+		//given
+		$attacker = new Character('melee');
+		$target = new Character('melee');
 		
-		$attacker->attacks($target, 200, -4);
+		// when
+		$attacker->attacks($target, 200, -4, 1);
 		
 		
 		//then
 		$targetHealth = $target->getHealth();
 		$this->assertEquals(600, $targetHealth);
 	}	
-
+	
+	public function test_melee_characters_attacks_in_2_meters_max()
+	{
+		//given
+		$attacker = new Character('melee');//type
+		$target = new Character('melee');
+		
+		// when
+		$attacker->attacks($target, 200, 0, 2);
+		
+		
+		//then
+		$targetHealth = $target->getHealth();
+		$this->assertEquals(800, $targetHealth);
+	}	
+	public function test_ranged_characters_attacks_in_20_meters_max()
+	{
+		//given
+		$attacker = new Character('ranged');//type
+		$target = new Character('ranged');
+		
+		// when
+		$attacker->attacks($target, 200, 0, 15);
+		
+		
+		//then
+		$targetHealth = $target->getHealth();
+		$this->assertEquals(800, $targetHealth);
+	}	
 
 		
 
