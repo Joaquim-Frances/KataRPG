@@ -12,10 +12,7 @@ class Character
     { 
        return $this->health;
     }
-    public function setHealth($newHealth) : void
-    {
-        $this->health = $newHealth;
-    }
+    
     
     public function getLevel() : int
     { 
@@ -30,7 +27,12 @@ class Character
     public function attack($target, $damage) : void
     {
         $targetHealth = $target->health - $damage;
-        $target->setHealth($targetHealth);
+        $target->health = $targetHealth;
+        
+        if ($target->health <= 0){
+            $target->isAlive = false;
+            $target->health = 0;
+        }
     }
 
 

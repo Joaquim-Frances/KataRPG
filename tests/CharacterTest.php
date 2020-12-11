@@ -28,11 +28,23 @@ class CharacterTest extends TestCase
 		$attacker = new Character;
 		$enemy = new Character;
 	//when
-		$attacker->attack($enemy, 100);
+		$attacker->attack($enemy, 200);
 		$targetHealth = $enemy->getHealth();
 	//then
-		$this->assertEquals($targetHealth, 900);
+		$this->assertEquals($targetHealth, 800);
 	}
+
+	public function test_if_health_0_or_below_attacked_character_is_dead(){
+
+		//given
+			$attacker = new Character;
+			$enemy = new Character;
+		//when
+			$attacker->attack($enemy, 1001);
+			$targetHealth = $enemy->getHealth();
+		//then
+			$this->assertEquals($targetHealth, 0);
+		}
 
 		
 }	
